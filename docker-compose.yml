@@ -1,7 +1,7 @@
-version: '3.8'
+version: '3.3'
 services:
   app:
-    images:Web-Sekolah/images
+    images:DianaEstifadah/kuis2
     container_name: php-apache
     depends_on:
       - db
@@ -12,25 +12,9 @@ services:
     networks:
       - backend
 
-    db:
-      container_name: db
-      images: mysql
-      restart: always
-      ports:
-      - "3306:3306"
-    environment:
-      MYSQL_DATABASE: Data Base school
-      MYSQL_ROOT_PASSWORD: Admin
-    volumes:
-      - db:/var/lib/mysql
-      - ./Data Base school.sql:/docker-entrypoint-initdb.d/Data Base school.sql
-    networks:
-      - backend
-
-  volumes:
+    Volume:
     db:
 
-  #Docker Networks
   networks:
     backend:
       name: backend-network
