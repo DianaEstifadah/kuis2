@@ -1,0 +1,40 @@
+version: '3.8'
+services:
+  app:
+    images:Web-Sekolah/images
+    container_name: php-apache
+    depends_on:
+      - db
+    volumes:
+      - ./php/src:/var/www/html/
+    ports:
+      - 8000:80
+    networks:
+      - backend
+
+    db:
+      container_name: db
+      images: mysql
+      restart: always
+      ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: Data Base school
+      MYSQL_ROOT_PASSWORD: Admin
+    volumes:
+      - db:/var/lib/mysql
+      - ./Data Base school.sql:/docker-entrypoint-initdb.d/Data Base school.sql
+    networks:
+      - backend
+
+  volumes:
+    db:
+
+  #Docker Networks
+  networks:
+    backend:
+      name: backend-network
+        ipam:
+          driver: default
+          config:
+            - subnet: 172.20.0/24
